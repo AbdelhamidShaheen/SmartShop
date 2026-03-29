@@ -54,7 +54,7 @@
             <div class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
 
                 @foreach ($related_products as $item)
-                    <div class="min-w-[160px] bg-white shadow rounded-xl overflow-hidden hover:shadow-lg transition">
+                    <div class="min-w-40 bg-white shadow rounded-xl overflow-hidden hover:shadow-lg transition">
 
                         <!-- Image -->
                         <a href="{{ route('products.show', $item->id) }}">

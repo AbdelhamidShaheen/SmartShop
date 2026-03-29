@@ -1,7 +1,7 @@
 <div class="max-w-7xl mx-auto px-6">
 
     <!-- Hero Section -->
-    <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white mt-6">
+    <div class="bg-linear-to-r from-purple-600 to-indigo-600 text-white mt-6">
         <div class="max-w-7xl mx-auto px-6 py-20 text-center">
 
             <!-- Tagline -->
