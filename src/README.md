@@ -55,6 +55,7 @@ Update your `.env` gemini api key:
 ### 6. Compile frontend assets
 
 ```bash
+docker-compose exec app npm run build
 docker-compose exec app npm run dev
 ```
 
