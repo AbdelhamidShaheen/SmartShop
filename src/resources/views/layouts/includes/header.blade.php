@@ -1,5 +1,5 @@
 <!-- resources/views/components/header-hero.blade.php -->
-<div class="relative bg-purple-600">
+<div class="sticky top-0 z-50 bg-purple-600">
     <!-- Navbar -->
     <header class="max-w-7xl mx-auto flex justify-between items-center py-4 px-6">
         <!-- Brand -->

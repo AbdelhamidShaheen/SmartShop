@@ -50,14 +50,14 @@
                 <!-- Horizontal Scroll -->
                 <div class="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
 
-                    @foreach ($recommended_products as $product)
+                    @foreach ($recommended_products as $recommended_product)
                         <div
                             class="bg-white shadow-md rounded-2xl overflow-hidden flex flex-col hover:shadow-xl transition">
 
                             <!-- Image -->
-                            <a href="{{ route('products.show', $product->id) }}">
+                            <a href="{{ route('products.show', $recommended_product->id) }}">
                                 <div class="h-40 w-full overflow-hidden">
-                                    <img src="{{ $product->image ?? 'https://via.placeholder.com/400' }}"
+                                    <img src="{{ $recommended_product->image ?? 'https://via.placeholder.com/400' }}"
                                         class="w-full h-full object-cover hover:scale-105 transition duration-300">
                                 </div>
                             </a>
@@ -66,17 +66,17 @@
                             <div class="p-4 flex flex-col justify-between flex-1">
                                 <div>
                                     <h3 class="text-md font-semibold text-gray-800 line-clamp-1">
-                                        {{ $product->name }}
+                                        {{ $recommended_product->name }}
                                     </h3>
 
                                     <p class="text-purple-600 font-bold mt-1">
-                                        ${{ number_format($product->price, 2) }}
+                                        ${{ number_format($recommended_product->price, 2) }}
                                     </p>
                                 </div>
 
                                 <!-- Button -->
 
-                                @livewire('cart.add-to-cart', ['product' => $product])
+                                @livewire('cart.add-to-cart', ['product' => $recommended_product],key('add-to-cart-recommnded'.$recommended_product->id) )
                             </div>
 
                         </div>
@@ -125,7 +125,7 @@
 
                             <!-- Add to Cart -->
                             <div class="mt-4">
-                                @livewire('cart.add-to-cart', ['product' => $product])
+                                @livewire('cart.add-to-cart', ['product' => $product],key('add-to-cart-'.$product->id))
 
                             </div>
                         </div>
