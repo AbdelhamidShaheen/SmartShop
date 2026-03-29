@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Http\Enums\UserType;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,9 +19,9 @@ class UserSeeder extends Seeder
     {
 
         User::firstOrCreate([
-            "email" => "guest@yahoo.com",
+            "email" => "user@example.com",
         ], [
-            "name" => "Guest",
+            "name" => UserType::CUSTOMER->value,
             "password" => Hash::make("password")
         ]);
     }

@@ -1,59 +1,123 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+## 🐳 Docker Setup Instructions
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 1. Clone the repository
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+```bash
+git clone https://github.com/AbdelhamidShaheen/SmartShop.git
+cd your-repo
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+### 2. Build and start containers
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+```bash
+docker-compose up -d --build
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+### 3. Install dependencies
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+docker-compose exec app composer install
+docker-compose exec app npm install
+```
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 4. Environment setup
 
-## Contributing
+```bash
+cp .env.example .env
+docker-compose exec app php artisan key:generate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+### 5. Configure database
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Update your `.env` file with database credentials (if needed), then run:
 
-## Security Vulnerabilities
+```bash
+docker-compose exec app php artisan migrate --seed
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+### 5.1 Configure gemini api key or use in env.example
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Update your `.env` gemini api key:
+
+
+### 6. Compile frontend assets
+
+```bash
+docker-compose exec app npm run dev
+```
+
+---
+
+### 7.1 Access the application
+run queue worker to fire jobs that recommend products
+```bash
+
+docker-compose exec app php artisan queue:work 
+
+```
+---
+
+### 7.1 Access the application
+
+Open your browser:
+
+```
+http://localhost:8000
+```
+
+---
+
+## 🐳 Docker Services
+
+* **app** → Laravel PHP application
+* **web** → Nginx server
+* **db** → MySQL database
+* **redis**  → caching/session
+
+---
+
+## 🤖 AI Recommendation System
+
+### 🔹 API Used
+
+**OpenAI API (Gemini)**
+
+
+## 🧠 How It Works
+
+1. Store user’s viewed products in session
+2. Send product data to the AI API
+3. AI returns recommended products
+4. Display them in the **“Recommended for You”** section
+
+---
+
+## 🧾 Example Prompt Sent to AI
+
+```
+You are an e-commerce recommender. 
+                   User history: [{"id":5,"name":"Noise Cancelling Headphones","description":"Over-ear headphones with active noise cancellation."},{"id":8,"name":"Portable Speaker","description":"Waterproof rugged speaker with deep bass."},{"id":17,"name":"Electric Kettle","description":"Fast-boil 1.7L glass kettle with LED indicator."}] ◀
+                   Available products: [{"id":1,"name":"Mechanical Keyboard","description":"RGB Backlit mechanical keyboard with blue switches."},{"id":2,"name":"Wireless Gaming Mouse","description":"High-precision 16000 DPI sensor with ergonomic grip."},{"id":3,"name":"Ultrawide Monitor","description":"34-inch curved display for immersive productivity."},{"id":4,"name":"USB-C Docking Station","description":"10-in-1 hub with 4K HDMI and Power Delivery."},{"id":5,"name":"Noise Cancelling Headphones","description":"Over-ear headphones with active noise cancellation."},{"id":6,"name":"Bluetooth Earbuds","description":"True wireless earbuds with 24-hour battery life."},{"id":7,"name":"Studio Microphone","description":"Professional XLR condenser mic for podcasting."},{"id":8,"name":"Portable Speaker","description":"Waterproof rugged speaker with deep bass."},{"id":9,"name":"Smart Desk Lamp","description":"Adjustable color temperature with wireless charging base."},{"id":10,"name":"Electric Standing Desk","description":"Height adjustable desk with memory presets."},{"id":11,"name":"Ergonomic Office Chair","description":"Breathable mesh back with lumbar support."},{"id":12,"name":"Minimalist Leather Wallet","description":"RFID blocking slim wallet made of top-grain leather."},{"id":13,"name":"Yoga Mat","description":"Non-slip 6mm thick exercise mat for home workouts."},{"id":14,"name":"Stainless Steel Bottle","description":"Vacuum insulated 1L water bottle, keeps cold for 24h."},{"id":15,"name":"Adjustable Dumbbells","description":"Compact 5-in-1 weight system for strength training."},{"id":16,"name":"Foam Roller","description":"High-density foam roller for muscle recovery."},{"id":17,"name":"Electric Kettle","description":"Fast-boil 1.7L glass kettle with LED indicator."},{"id":18,"name":"French Press Coffee Maker","description":"BPA-free glass and stainless steel coffee press."},{"id":19,"name":"Air Purifier","description":"HEPA filter purifier for small to medium rooms."},{"id":20,"name":"Bamboo Cutting Board","description":"Set of 3 eco-friendly organic bamboo boards."},{"id":21,"name":"Hardshell Carry-on","description":"Lightweight suitcase with 360-degree spinner wheels."},{"id":22,"name":"Solar Power Bank","description":"20,000mAh battery with solar charging panels."},{"id":23,"name":"Portable Hammock","description":"Double camping hammock with reinforced straps."},{"id":24,"name":"LED Camping Lantern","description":"Rechargeable 1000 lumen lantern with SOS mode."},{"id":25,"name":"Dotted Journal","description":"A5 hardcover notebook for bullet journaling."},{"id":26,"name":"Fine Liner Pen Set","description":"12-pack of archival ink pens for sketching."},{"id":27,"name":"Laptop Stand","description":"Aluminum ventilated stand for better posture."},{"id":28,"name":"Desk Mat","description":"Extra large vegan leather desk pad."},{"id":29,"name":"Smart Plug","description":"WiFi enabled outlet compatible with Alexa and Google."},{"id":30,"name":"Wireless Charger Pad","description":"15W fast charging pad for Qi-enabled devices."},{"id":31,"name":"Webcam 1080p","description":"High-def camera with built-in privacy shutter."},{"id":32,"name":"External SSD 1TB","description":"High-speed portable drive for data backup."}] ◀
+                   Return ONLY a JSON array of the top 3 recommended product IDs.
+
+---
+
+
+### Rebuild containers
+
+```bash
+docker-compose down -v
+docker-compose up -d --build
+```

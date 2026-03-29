@@ -2,20 +2,20 @@
 
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
-use App\Livewire\ListProducts;
-use App\Livewire\ShowCart;
-use App\Livewire\ShowProduct;
+use App\Livewire\Cart\ShowCart;
+use App\Livewire\Product\ListProducts;
+use App\Livewire\Product\ShowProduct;
 use Illuminate\Support\Facades\Route;
 
 
-Route::group(["as" => "auth.", "prefix" => "auth"], function () {
+Route::group(["as" => "auth.", "middleware" => ["guest"], "prefix" => "auth"], function () {
     Route::get('register', Register::class)->name("register");
     Route::get('login', Login::class)->name("login");
 });
 
-Route::group(["as" => "products.", "prefix" => "products"], function () {
+Route::group(["as" => "products."], function () {
     Route::get('/', ListProducts::class)->name("list");
-    Route::get('/{productId}/show', ShowProduct::class)->name("show");
+    Route::get('products/{productId}/show', ShowProduct::class)->name("show");
 });
 
 Route::get('cart', ShowCart::class)->name("cart.show");

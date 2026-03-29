@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Cart;
 
-use App\Models\Product;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -12,14 +11,24 @@ class ShowCart extends Component
 {
     public $cart = [];
 
-    protected $listeners = ['addToCart'];
+    public $orderSuccess = false;
+
 
     public function mount()
     {
         $this->cart = session()->get('cart', []);
     }
 
-  
+    public function checkout()
+    {
+        session()->forget('cart');
+
+        $this->cart = [];
+        $this->orderSuccess = true;
+
+        $this->dispatch('cartUpdated');
+    }
+
 
     public function removeFromCart($productId)
     {
@@ -45,6 +54,6 @@ class ShowCart extends Component
 
     public function render()
     {
-        return view('livewire.show-cart');
+        return view('livewire.cart.show-cart');
     }
 }

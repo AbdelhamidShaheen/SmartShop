@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Auth;
 
+use App\Http\Enums\UserType;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use App\Models\User;
@@ -30,6 +31,7 @@ class Register extends Component
             'name' => $this->name,
             'email' => $this->email,
             'password' => Hash::make($this->password),
+            "type" => UserType::CUSTOMER->value
         ]);
 
         Auth::login($user);

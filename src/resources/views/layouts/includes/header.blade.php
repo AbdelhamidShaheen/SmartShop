@@ -20,7 +20,7 @@
 
 
             <!-- Cart Button with Counter -->
-            @livewire('cart-counter')
+            @livewire('cart.cart-counter')
 
 
         </nav>

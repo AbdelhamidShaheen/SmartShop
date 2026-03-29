@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Http\Services\Classes\RecommendationService;
+use App\Http\Services\Interfaces\IRecommendationService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,6 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->scoped(IRecommendationService::class, RecommendationService::class);
         //
     }
 
