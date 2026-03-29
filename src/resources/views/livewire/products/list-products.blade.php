@@ -125,10 +125,8 @@
 
                             <!-- Add to Cart -->
                             <div class="mt-4">
-                                <button wire:click="addToCart({{ $product->id }})"
-                                    class="w-full bg-purple-600 text-white py-2 rounded-xl hover:bg-purple-700 transition">
-                                    Add to Cart
-                                </button>
+                                @livewire('cart.add-to-cart', ['product' => $product])
+
                             </div>
                         </div>
 
