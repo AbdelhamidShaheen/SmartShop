@@ -19,10 +19,10 @@ class UserSeeder extends Seeder
     {
 
         User::firstOrCreate([
-            "email" => "user@example.com",
+            'email' => 'user@example.com',
         ], [
-            "name" => UserType::CUSTOMER->value,
-            "password" => Hash::make("password")
+            'name' => UserType::CUSTOMER->value,
+            'password' => Hash::make('password'),
         ]);
     }
 }

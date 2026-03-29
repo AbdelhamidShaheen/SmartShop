@@ -7,12 +7,10 @@ use Livewire\Component;
 
 #[Layout('layouts.app')]
 class ShowCart extends Component
-
 {
     public $cart = [];
 
     public $orderSuccess = false;
-
 
     public function mount()
     {
@@ -29,7 +27,6 @@ class ShowCart extends Component
         $this->dispatch('cartUpdated');
     }
 
-
     public function removeFromCart($productId)
     {
         unset($this->cart[$productId]);
@@ -40,7 +37,9 @@ class ShowCart extends Component
 
     public function updateQuantity($productId, $quantity)
     {
-        if ($quantity < 1) return;
+        if ($quantity < 1) {
+            return;
+        }
         $this->cart[$productId]['quantity'] = $quantity;
         session()->put('cart', $this->cart);
     }

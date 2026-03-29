@@ -2,15 +2,17 @@
 
 namespace App\Livewire\Auth;
 
-use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
+use Livewire\Component;
 
 #[Layout('layouts.empty')]
 class Login extends Component
 {
     public $email = '';
+
     public $password = '';
+
     public $remember = false;
 
     protected $rules = [
@@ -24,7 +26,7 @@ class Login extends Component
 
         if (Auth::attempt([
             'email' => $this->email,
-            'password' => $this->password
+            'password' => $this->password,
         ], $this->remember)) {
 
             session()->regenerate();

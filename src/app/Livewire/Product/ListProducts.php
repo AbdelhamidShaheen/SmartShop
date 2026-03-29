@@ -14,13 +14,11 @@ class ListProducts extends Component
 {
     use WithPagination;
 
-
-
     public function render()
     {
         return view('livewire.products.list-products', [
-            "products" => Product::paginate(8),
-            'recommended_products' => app(IRecommendationService::class)->getRecommendations(Session::get("last_viewed_products", []))
+            'products' => Product::paginate(8),
+            'recommended_products' => app(IRecommendationService::class)->getRecommendations(Session::get('last_viewed_products', [])),
         ]);
     }
 }

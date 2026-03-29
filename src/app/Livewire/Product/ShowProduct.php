@@ -12,7 +12,6 @@ use Livewire\Component;
 #[Layout('layouts.app')]
 class ShowProduct extends Component
 {
-
     public Product $product;
 
     public function mount($productId)
@@ -23,7 +22,7 @@ class ShowProduct extends Component
 
     private function registerViews()
     {
-        $lastViewedProducts =  collect(Session::get("last_viewed_products", []));
+        $lastViewedProducts = collect(Session::get('last_viewed_products', []));
         // Check if product already registered
         if ($lastViewedProducts->contains($this->product->id)) {
             return;
@@ -33,15 +32,15 @@ class ShowProduct extends Component
         if ($lastViewedProducts->count() > 3) {
             $lastViewedProducts->shift();
         }
-        Session::put("last_viewed_products", $lastViewedProducts->toArray());
+        Session::put('last_viewed_products', $lastViewedProducts->toArray());
         // Dispatch to load product recommendations
-        ProductsRecomendations::dispatch(Session::get("last_viewed_products", []));
+        ProductsRecomendations::dispatch(Session::get('last_viewed_products', []));
     }
 
     public function render()
     {
         return view('livewire.products.show-product', [
-            "related_products" => app(IRecommendationService::class)->getRecommendations([$this->product->id])
+            'related_products' => app(IRecommendationService::class)->getRecommendations([$this->product->id]),
         ]);
     }
 }

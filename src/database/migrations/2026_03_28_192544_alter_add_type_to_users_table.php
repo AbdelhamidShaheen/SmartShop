@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
 
-            $table->string("type")->nullable();
+            $table->string('type')->nullable();
             //
         });
     }
@@ -25,7 +25,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->dropColumn(["type"]);
+            $table->dropColumn(['type']);
         });
     }
 };

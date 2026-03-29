@@ -3,18 +3,21 @@
 namespace App\Livewire\Auth;
 
 use App\Http\Enums\UserType;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 
 #[Layout('layouts.empty')]
 class Register extends Component
 {
     public $name = '';
+
     public $email = '';
+
     public $password = '';
+
     public $password_confirmation = '';
 
     protected $rules = [
@@ -31,7 +34,7 @@ class Register extends Component
             'name' => $this->name,
             'email' => $this->email,
             'password' => Hash::make($this->password),
-            "type" => UserType::CUSTOMER->value
+            'type' => UserType::CUSTOMER->value,
         ]);
 
         Auth::login($user);

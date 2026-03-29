@@ -2,13 +2,12 @@
 
 namespace App\Livewire\Auth;
 
-use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
 
 class Logout extends Component
 {
-      protected $middleware = ['auth'];
-
+    protected $middleware = ['auth'];
 
     public function logout()
     {

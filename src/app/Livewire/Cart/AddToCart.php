@@ -19,7 +19,9 @@ class AddToCart extends Component
         $cart = session()->get('cart', []);
 
         $product = Product::find($productId);
-        if (!$product) return;
+        if (! $product) {
+            return;
+        }
 
         if (array_key_exists($productId, $cart)) {
             $cart[$productId]['quantity']++;
