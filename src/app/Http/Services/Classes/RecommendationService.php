@@ -27,7 +27,6 @@ class RecommendationService implements IRecommendationService
                    Available products: " . json_encode($allProducts->map->only(["id", "name", "description"])) . "
                    Return ONLY a JSON array of the top 3 recommended product IDs.";
 
-        dd($prompt);
         try { // to handle quota excptions for gemini
 
             $result =   Cache::rememberForever("products_" . json_encode($userHistory), function () use ($prompt) {
