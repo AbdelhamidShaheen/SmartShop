@@ -5,8 +5,9 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
-class DatabaseSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     use WithoutModelEvents;
 
@@ -15,6 +16,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([UserSeeder::class, ProductSeeder::class]);
+
+        User::firstOrCreate([
+            "email" => "guest@yahoo.com",
+        ], [
+            "name" => "Guest",
+            "password" => Hash::make("password")
+        ]);
     }
 }

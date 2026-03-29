@@ -11,10 +11,7 @@
         @livewireStyles
     </head>
     <body>
-        @include('layouts.includes.header')
         {{ $slot }}
-         @include('layouts.includes.footer')
-
         @livewireScripts
     </body>
 </html>
