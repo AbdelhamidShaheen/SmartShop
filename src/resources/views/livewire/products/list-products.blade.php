@@ -75,8 +75,10 @@
                                 </div>
 
                                 <!-- Button -->
+                                <div class="mt-4 w-full"  wire:key="{{ 'add-to-cart-recommnded' . $recommended_product->id }}">
+                                    @livewire('cart.add-to-cart', ['product' => $recommended_product])
 
-                                @livewire('cart.add-to-cart', ['product' => $recommended_product],key('add-to-cart-recommnded'.$recommended_product->id) )
+                                </div>
                             </div>
 
                         </div>
@@ -124,8 +126,8 @@
                             </div>
 
                             <!-- Add to Cart -->
-                            <div class="mt-4">
-                                @livewire('cart.add-to-cart', ['product' => $product],key('add-to-cart-'.$product->id))
+                            <div class="mt-4 w-full" wire:key="{{ 'add-to-cart' . $product->id }}">
+                                @livewire('cart.add-to-cart', ['product' => $product])
 
                             </div>
                         </div>
