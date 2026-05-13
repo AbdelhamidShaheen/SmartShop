@@ -10,7 +10,7 @@ class ProductService implements IProductService
 
     public function getAllProducts()
     {
-        return Product::paginate();
+        return Product::paginate(request()->query('per_page', 15));
     }
 
     public function getProductById($id)
