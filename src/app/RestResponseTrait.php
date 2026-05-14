@@ -9,7 +9,8 @@ trait RestResponseTrait
         return response()->json([
             'status' => 'success',
             'message' => $message,
-            'data' => $data
+            'data' => $data,
+            'code' => $code
         ], $code);
     }
     //
@@ -19,7 +20,8 @@ trait RestResponseTrait
         return response()->json([
             'status' => 'error',
             'message' => $message,
-            'data' => $data
-        ], $code);
+            'data' => $data,
+            'code' => $code
+        ], 400);
     }
 }
