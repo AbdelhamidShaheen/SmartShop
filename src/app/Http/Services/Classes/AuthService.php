@@ -14,7 +14,9 @@ class AuthService implements IAuthService
     public function login(array $data)
     {
 
-        $user = User::where('email', $data['email'])->first();
+        $user = User::where('email', $data['email'])
+            ->where('user_type', $data['user_type'])
+            ->first();
 
         if (!$user || !Hash::check($data['password'], $user->password)) {
             throw new \Exception('Invalid credentials');
@@ -30,7 +32,7 @@ class AuthService implements IAuthService
 
     public function register(array $data)
     {
-       $user = User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),

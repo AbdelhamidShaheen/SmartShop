@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Enums\UserType;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class LoginRequest extends FormRequest
 {
@@ -25,6 +27,7 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required'],
             'password' => ['required', 'string', 'min:8'],
+            'user_type' => ['required', 'string',Rule::in(UserType::values())],
         ];
     }
 }

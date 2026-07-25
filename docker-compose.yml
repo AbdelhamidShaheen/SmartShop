@@ -36,7 +36,7 @@ services:
       MYSQL_USER: laravel
       MYSQL_PASSWORD: secret
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - dbdata:/var/lib/mysql
 
@@ -45,7 +45,7 @@ services:
     image: redis:7-alpine
     container_name: smart_shop_redis
     ports:
-      - "6379:6379"
+      - "6380:6379"
     volumes:
       - redisdata:/data   
 

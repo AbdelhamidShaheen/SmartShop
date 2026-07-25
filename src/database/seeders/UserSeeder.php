@@ -24,5 +24,13 @@ class UserSeeder extends Seeder
             'name' => UserType::CUSTOMER->value,
             'password' => Hash::make('password'),
         ]);
+
+           User::updateOrCreate([
+            'email' => 'admin@example.com',
+        ], [
+            'name' => UserType::ADMIN->value,
+            'password' => Hash::make('password'),
+            'user_type' => UserType::ADMIN->value,
+        ]);
     }
 }

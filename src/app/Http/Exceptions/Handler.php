@@ -23,6 +23,6 @@ class Handler
             return Response::HTTP_UNAUTHORIZED;
         }
 
-        return $e->getCode();
+        return (int)$e->getCode();
     }
 }
