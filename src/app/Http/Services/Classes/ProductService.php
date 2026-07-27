@@ -17,4 +17,26 @@ class ProductService implements IProductService
     {
         return Product::findOrFail($id);
     }
+
+    public function createProduct(array $data)
+    {
+        $data['image'] = $data['image']->store("products","public"); // Set default image if not provided
+        return Product::create($data);
+    }
+
+
+    public function updateProduct($id, array $data)
+    {
+        $product = Product::findOrFail($id);
+        $product->update($data);
+        return $product;
+    }
+
+
+    public function deleteProduct($id)
+    {
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return $product;
+    }
 }

@@ -15,7 +15,7 @@ class CheckUserType
      *
      * @param  Closure(Request): (Response)  $next
      */
-    public function handle(Request $request, string $userType, Closure $next): Response
+    public function handle(Request $request, Closure $next,string $userType): Response
     {
         if ($request->user()->user_type !== $userType) {
             return $this->error('Unauthorized', Response::HTTP_UNAUTHORIZED);
